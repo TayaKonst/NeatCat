@@ -11,7 +11,7 @@ const FIREWORK_SIZE = 200 * FIREWORK_SCALE;
 
 let cat = {
     x: canvas.width / 2 - 25,
-    y: canvas.height - 90,
+    y: canvas.height - 60,
     width: 50,
     height: 70,
     dy: 0,
@@ -39,6 +39,7 @@ const images = {
     sink: loadImage('sink.png'),
     soap: loadImage('soap.png'),
     closet: loadImage('closet.png'),
+    pillow: loadImage('pillow.png'),
     chair: loadImage('chair.png')
 };
 
@@ -51,24 +52,41 @@ const rooms = {
     hall: { x: 420, y: 410, width: 210, height: 170 }
 };
 
+// Определяем предопределенные позиции для каждого предмета
+const itemPositions = {
+    toy: { x: 190, y: 286 },
+    tv: { x: 225, y: 501 },
+    rug: { x: 321, y: 550 },
+    refrigerator: { x: 430, y: 170},
+    shoes: { x: 506, y: 498 },
+    komod: { x: 506, y: 498 },
+    picture: { x: 545, y: 280 },
+    fruits: { x: 543, y: 189 },
+    sink: { x: 383, y: 193 },
+    soap: { x: 372, y: 191 },
+    closet: { x: 227, y: 315 },
+    chair: { x: 84, y: 511 }
+};
+
 const items = [
-    createItem('toy.png', 'kids_room', 100, canvas.height - 150),
-    createItem('tv.png', 'living_room', 200, canvas.height - 150),
-    createItem('rug.png', 'living_room', 300, canvas.height - 150),
-    createItem('refrigerator.png', 'kitchen', 400, canvas.height - 150),
-    createItem('shoes.png', 'hall', 500, canvas.height - 150),
-    createItem('komod.png', 'hall', 600, canvas.height - 150),
-    createItem('picture.png', 'parents_room', 700, canvas.height - 150),
-    createItem('fruits.png', 'kitchen', 800, canvas.height - 150),
-    createItem('sink.png', 'bathroom', 900, canvas.height - 150),
-    createItem('soap.png', 'bathroom', 1000, canvas.height - 150),
-    createItem('closet.png', 'kids_room', 1100, canvas.height - 150),
-    createItem('chair.png', 'living_room', 1200, canvas.height - 150)
+    createItem('toy.png', 'kids_room', 950, 100),
+    createItem('tv.png', 'living_room', 950, 190),
+    createItem('rug.png', 'living_room', 950, 280),
+    createItem('refrigerator.png', 'kitchen', 950, 550),
+    createItem('shoes.png', 'hall', 1080, 190),
+    createItem('komod.png', 'hall', 1080, 280),
+    createItem('picture.png', 'parents_room', 1080, 370),
+    createItem('fruits.png', 'kitchen', 1080, 465),
+    createItem('sink.png', 'bathroom', 950, 370),
+    createItem('soap.png', 'bathroom', 1080, 100),
+    createItem('closet.png', 'kids_room', 950, 460),
+    createItem('chair.png', 'living_room', 1080, 550)
 ];
 
 const platforms = [
-    { x: 100, y: canvas.height - 190, width: 700, height: 10 },
+    { x: 100, y: canvas.height - 170, width: 700, height: 10 },
     { x: 100, y: canvas.height - 343, width: 700, height: 10 },
+    ...Array.from({ length: 6 }, (_, i) => ({ x: 950, y: 100 + i * 90, width: 200, height: 10 })),
     { x: 100, y: canvas.height - 50, width: 700, height: 10 }
 ];
 
@@ -153,8 +171,8 @@ function isColliding(obj1, obj2) {
 
 function render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(images.background, 0, 0, canvas.width, canvas.height - 200);
-    context.drawImage(images.shelves, 0, canvas.height - 200, canvas.width, 200);
+    context.drawImage(images.background, 0, 0, canvas.width - 316, canvas.height);
+    context.drawImage(images.shelves, canvas.width - 316, 0, 316, canvas.height);
 
     context.drawImage(images.cat, cat.x, cat.y, cat.width, cat.height);
 
@@ -163,7 +181,7 @@ function render() {
     });
 
     for (let room in rooms) {
-        context.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        context.strokeStyle = 'rgba(0, 0, 0, 0)';
         context.strokeRect(rooms[room].x, rooms[room].y, rooms[room].width, rooms[room].height);
     }
 
@@ -175,32 +193,16 @@ function render() {
     }
 }
 
+// Функция для проверки и установки предмета в правильное место
 function checkPlacement(item) {
-    const itemPositions = {
-        toy: { x: 243, y: 346 },
-        tv: { x: 225, y: 501 },
-        rug: { x: 321, y: 550 },
-        refrigerator: { x: 472, y: 184 },
-        shoes: { x: 506, y: 498 },
-        komod: { x: 506, y: 498 },
-        picture: { x: 545, y: 280 },
-        fruits: { x: 543, y: 189 },
-        sink: { x: 383, y: 193 },
-        soap: { x: 372, y: 191 },
-        closet: { x: 227, y: 315 },
-        chair: { x: 84, y: 511 }
-    };
-
     for (let room in rooms) {
         let roomData = rooms[room];
         if (item.x > roomData.x && item.x + item.width < roomData.x + roomData.width &&
             item.y > roomData.y && item.y + item.height < roomData.y + roomData.height) {
             if (item.room === room) {
                 const itemName = item.img.src.split('/').pop().split('.')[0];
-                if (itemPositions[itemName]) {
-                    item.x = itemPositions[itemName].x;
-                    item.y = itemPositions[itemName].y;
-                }
+                item.x = itemPositions[itemName].x; // Устанавливаем новую координату x
+                item.y = itemPositions[itemName].y; // Устанавливаем новую координату y
                 showFireworks();
                 return true;
             }
