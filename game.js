@@ -24,23 +24,23 @@ let cat = {
 };
 
 const images = {
-    cat: loadImage('cat.png'),
-    shelves: loadImage('shelves.png'),
-    background: loadImage('house.png'),
-    firework: loadImage('firework.png'),
-    tv: loadImage('tv.png'),
-    toy: loadImage('toy.png'),
-    rug: loadImage('rug.png'),
-    refrigerator: loadImage('refrigerator.png'),
-    shoes: loadImage('shoes.png'),
-    komod: loadImage('komod.png'),
-    picture: loadImage('picture.png'),
-    fruits: loadImage('fruits.png'),
-    sink: loadImage('sink.png'),
-    soap: loadImage('soap.png'),
-    closet: loadImage('closet.png'),
-    pillow: loadImage('pillow.png'),
-    chair: loadImage('chair.png')
+    cat: loadImage('.assets/cat.png'),
+    shelves: loadImage('.assets/shelves.png'),
+    background: loadImage('.assets/house.png'),
+    firework: loadImage('.assets/firework.png'),
+    tv: loadImage('.assets/tv.png'),
+    toy: loadImage('.assets/toy.png'),
+    rug: loadImage('.assets/rug.png'),
+    refrigerator: loadImage('.assets/refrigerator.png'),
+    shoes: loadImage('.assets/shoes.png'),
+    komod: loadImage('.assets/komod.png'),
+    picture: loadImage('.assets/picture.png'),
+    fruits: loadImage('.assets/fruits.png'),
+    sink: loadImage('.assets/sink.png'),
+    soap: loadImage('.assets/soap.png'),
+    closet: loadImage('.assets/closet.png'),
+    pillow: loadImage('.assets/pillow.png'),
+    chair: loadImage('.assets/chair.png')
 };
 
 const rooms = {
@@ -52,7 +52,7 @@ const rooms = {
     hall: { x: 420, y: 410, width: 210, height: 170 }
 };
 
-// Определяем предопределенные позиции для каждого предмета
+
 const itemPositions = {
     toy: { x: 190, y: 286 },
     tv: { x: 225, y: 501 },
@@ -193,7 +193,7 @@ function render() {
     }
 }
 
-// Функция для проверки и установки предмета в правильное место
+
 function checkPlacement(item) {
     for (let room in rooms) {
         let roomData = rooms[room];
@@ -201,8 +201,8 @@ function checkPlacement(item) {
             item.y > roomData.y && item.y + item.height < roomData.y + roomData.height) {
             if (item.room === room) {
                 const itemName = item.img.src.split('/').pop().split('.')[0];
-                item.x = itemPositions[itemName].x; // Устанавливаем новую координату x
-                item.y = itemPositions[itemName].y; // Устанавливаем новую координату y
+                item.x = itemPositions[itemName].x; 
+                item.y = itemPositions[itemName].y; 
                 showFireworks();
                 return true;
             }
