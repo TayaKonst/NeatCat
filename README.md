@@ -1,39 +1,42 @@
-**Overview**
+# NeatCat
 
-NeatCat is an engaging and interactive 2D logic game designed for children aged 4-6 years. The primary objective of the game is to help a cat navigate through various rooms in a house, collecting and placing items in their correct locations. The game features a playful environment, engaging animations, and a rewarding system with fireworks to celebrate correct item placements.
+A kids' browser game built with Next.js. A cartoon cat walks through a painted dollhouse and needs your help putting things back where they belong.
 
-This game was inspired by my daughter's idea on our way home from kindergarten. I decided to bring her vision to life by creating this game.
+This game was inspired by my daughter's idea on our way home from kindergarten.
 
-**Features**
+## How to play
 
-Interactive Gameplay: Control a cat as it moves through different rooms of a house.
-Item Collection: Pick up items scattered around the house and place them in their correct locations.
-Reward System: Enjoy fireworks when items are correctly placed in their respective rooms.
-Adaptable Layout: The game layout adjusts to fit different screen sizes, providing an optimal experience on both desktop and mobile devices.
-How to Play
+Items are stacked on the shelves on the right side of the screen. Move the cat to pick them up, carry them into the correct room, and drop them there. Place all 12 items correctly to win.
 
-**Movement:**
+**Keyboard**
+- `←` `→` — move the cat
+- `Space` — jump
+- `↓` — slide / drop down
+- `E` — pick up or drop an item
 
-Use the left and right arrow keys to move the cat horizontally.
-Use the down arrow key to slide down.
-Press the space bar to make the cat jump.
-Item Interaction:
+**Tablet (touch)**
+- Tap the left third of the screen to move left
+- Tap the right third to move right
+- Tap the center to jump or interact
 
-Press the 'E' key to pick up or drop items.
-Move the cat to an item to pick it up and move it to the correct room.
-Rooms and Items:
+A firework animation and a chime play when an item lands in the right room. A red ✕ and a buzzer sound appear when it goes in the wrong one. Once every item is placed, a **You Win!** screen appears — tap or press `R` to play again.
 
-The house has several rooms including a bathroom, kitchen, kids' room, parents' room, living room, and hall.
-Each room has designated items that need to be placed correctly.
-Objective:
+## Rooms and items
 
-Place all items in their correct rooms to see the rewarding fireworks display.
-Game Controls
+| Room | Items |
+|---|---|
+| Bathroom | Sink, Soap |
+| Kitchen | Refrigerator, Fruits |
+| Kid's Room | Toy, Closet |
+| Bedroom | Picture |
+| Living Room | TV, Rug, Chair |
+| Hall | Shoes, Komod |
 
-Arrow Keys: Move the cat left, right, or down.
-Space Bar: Jump.
-E Key: Pick up or drop items.
+## Running locally
 
-**Development**
+```bash
+npm install
+npm run dev
+```
 
-The game is built using HTML, CSS, and JavaScript, and is designed to be fully responsive to adapt to different screen sizes. The canvas element is used for rendering the game graphics, and the game logic is handled in JavaScript.
+Open [http://localhost:3000](http://localhost:3000).
