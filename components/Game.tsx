@@ -349,10 +349,12 @@ export default function Game() {
     // ── placement ─────────────────────────────────────────────────────────────
 
     function tryPlace(item: Item) {
+      const catCx = s.cat.x + s.cat.width / 2;
+      const catCy = s.cat.y + s.cat.height / 2;
       for (const [room, r] of Object.entries(ROOMS)) {
         const inside =
-          item.x > r.x && item.x + item.width < r.x + r.width &&
-          item.y > r.y && item.y + item.height < r.y + r.height;
+          catCx > r.x && catCx < r.x + r.width &&
+          catCy > r.y && catCy < r.y + r.height;
         if (!inside) continue;
 
         if (item.room === room) {
